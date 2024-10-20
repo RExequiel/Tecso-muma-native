@@ -1,34 +1,103 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import React from "react";
+import * as Yup from "yup";
+import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import authenticationService from "../../../services/authenticationService";
+import { Formik } from "formik";
 import { styles } from "./LoginStyles";
 
-export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Debe ingresar un email válido")
+    .required("Email es requerido"),
+  password: Yup.string()
+    .matches(/^\d+$/, "La contraseña debe ser numérica")
+    .required("Contraseña es requerida"),
+});
 
-  const handleLogin = () => {
-    // Aquí puedes manejar la lógica de inicio de sesión
-    navigation.replace("Home"); // Navegar a la pantalla Home
+function Login() {
+  const navigation = useNavigation();
+
+  const handleSubmit = async (values) => {
+    try {
+      const response = await authenticationService.login(
+        values.email,
+        values.password
+      );
+      await AsyncStorage.setItem("accessToken", response.token);
+      await AsyncStorage.setItem("refreshToken", response.refreshToken);
+      if (response.token) {
+        navigation.navigate("Home");
+      }
+    } catch (error) {
+      console.error("Error en login:", error);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Iniciar Sesión</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Button title="Ingresar" onPress={handleLogin} />
-      <Button title="Registrarse" onPress={() => navigation.navigate("Register")} />
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          handleSubmit(values);
+          setSubmitting(false);
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit: formikHandleSubmit,
+          isSubmitting,
+        }) => (
+          <View>
+            <TextInput
+              style={[
+                styles.input,
+                touched.email && errors.email ? styles.inputError : null,
+              ]}
+              placeholder="Email*"
+              onChangeText={handleChange("email")}
+              onBlur={handleBlur("email")}
+              value={values.email}
+            />
+            {touched.email && errors.email && (
+              <Text style={styles.errorText}>{errors.email}</Text>
+            )}
+
+            <TextInput
+              style={[
+                styles.input,
+                touched.password && errors.password ? styles.inputError : null,
+              ]}
+              placeholder="Contraseña*"
+              secureTextEntry
+              onChangeText={handleChange("password")}
+              onBlur={handleBlur("password")}
+              value={values.password}
+            />
+            {touched.password && errors.password && (
+              <Text style={styles.errorText}>{errors.password}</Text>
+            )}
+
+            <Button
+              title="Ingresar"
+              onPress={formikHandleSubmit}
+              disabled={isSubmitting}
+            />
+            <Button
+              title="Crear cuenta"
+              onPress={() => navigation.navigate("Register")}
+            />
+          </View>
+        )}
+      </Formik>
     </View>
   );
 }
+
+export default Login;
