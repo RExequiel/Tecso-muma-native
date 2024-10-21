@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import authenticationService from "../../../services/authenticationService";
 import { Formik } from "formik";
 import { styles } from "./LoginStyles";
+import { TouchableOpacity } from "react-native";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -83,16 +84,14 @@ function Login() {
             {touched.password && errors.password && (
               <Text style={styles.errorText}>{errors.password}</Text>
             )}
-
-            <Button
-              title="Ingresar"
-              onPress={formikHandleSubmit}
-              disabled={isSubmitting}
-            />
-            <Button
-              title="Crear cuenta"
-              onPress={() => navigation.navigate("Register")}
-            />
+            <TouchableOpacity 
+              disabled={isSubmitting} style={styles.button} onPress={formikHandleSubmit}>
+              <Text>Ingresar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              disabled={isSubmitting} style={styles.button} onPress={() => navigation.navigate("Register")}>
+              <Text>Crear cuenta</Text>
+            </TouchableOpacity>
           </View>
         )}
       </Formik>
