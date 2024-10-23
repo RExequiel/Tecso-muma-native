@@ -1,11 +1,15 @@
 import React from "react";
 import * as Yup from "yup";
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, TextInput, Text, Image } from "react-native";
+import {useState} from 'react';
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import authenticationService from "../../../services/authenticationService";
 import { Formik } from "formik";
 import { styles } from "./LoginStyles";
+import { TouchableOpacity, TouchableHighlight } from "react-native";
+import logoMuma from "../../../../assets/icon.png"
+import Checkbox from 'expo-checkbox';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -18,6 +22,7 @@ const validationSchema = Yup.object().shape({
 
 function Login() {
   const navigation = useNavigation();
+  const [isSelected, setSelection] = useState(false);
 
   const handleSubmit = async (values) => {
     try {
@@ -37,6 +42,14 @@ function Login() {
 
   return (
     <View style={styles.container}>
+
+      <View style={styles.logoContainer}>
+        <Image 
+          style={styles.imageLogo}
+          source={logoMuma} 
+        />
+      </View>
+
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
@@ -84,18 +97,34 @@ function Login() {
               <Text style={styles.errorText}>{errors.password}</Text>
             )}
 
-            <TouchableOpacity 
+            <View>
+              <View style={styles.checkboxContainer}>
+                <Checkbox
+                  value={isSelected}
+                  onValueChange={setSelection}
+                  style={styles.checkbox}
+                />
+                <Text style={styles.label}>Recordarme</Text>
+                <TouchableHighlight >
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>¿Olvidaste tu contraseña?</Text>
+                  </View>
+                </TouchableHighlight>
+              </View>
+            </View>
+
+            <TouchableOpacity
               disabled={isSubmitting} 
-              style={styles.button} 
+              style={styles.buttonPrimary}
               onPress={formikHandleSubmit}>
-              <Text style={styles.buttonText}>Ingresar</Text>
+              <Text style={styles.buttonTextPrimary}>Ingresar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
-              disabled={isSubmitting} 
-              style={styles.button} 
-              onPress={() => navigation.navigate("Register")}>
-              <Text style={styles.buttonText}>Crear cuenta</Text>
+              disabled={isSubmitting}
+              style={styles.buttonSecondary}
+              onPress={() => navigation.navigate("SelectionUser")}>
+              <Text style={styles.buttonTextSecondary}>Crear cuenta</Text>
             </TouchableOpacity>
           </View>
         )}
