@@ -6,7 +6,6 @@ const authenticationService = {
     try {
       const response = await api.post('/api/Authentication/token', { user, password });
       
-      // Almacenar el accessToken y refreshToken en AsyncStorage
       const { token, refreshToken } = response.data;
       AsyncStorage.setItem('accessToken', token);
       AsyncStorage.setItem('refreshToken', refreshToken);
@@ -18,12 +17,10 @@ const authenticationService = {
     }
   },
 
-  // Método para refrescar el token
   refreshToken: async (token) => {
     try {
       const response = await api.post('/api/Authentication/refresh-token', { token });
       
-      // Actualizar el accessToken
       AsyncStorage.setItem('accessToken', response.data.token);
       return response.data;
     } catch (error) {

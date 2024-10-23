@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import authenticationService from './authenticationService';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8082',
+  baseURL: 'http://192.168.1.35:8082',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -31,7 +31,6 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     const status = error.response ? error.response.status : null;
 
-    // Si el token ha expirado (por ejemplo, status 401), intentamos refrescar el token
     if (status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
@@ -39,10 +38,8 @@ api.interceptors.response.use(
         const refreshToken = await AsyncStorage.getItem('refreshToken');
         const response = await authenticationService.refreshToken(refreshToken);
 
-        // Guardar el nuevo token en AsyncStorage
         await AsyncStorage.setItem('accessToken', response.token);
 
-        // Repetir la solicitud original con el nuevo token
         originalRequest.headers['Authorization'] = `Bearer ${response.token}`;
         return api(originalRequest);
       } catch (refreshError) {
