@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { colors, spacing, typography } from "../../../theme/theme";
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,11 +12,11 @@ export const styles = StyleSheet.create({
 
   input: {
     height: 50,
-    borderColor: "#ccc",
+    borderColor: colors.border,
     borderWidth: 1,
     borderRadius: 5,
-    marginBottom: 15,
-    paddingHorizontal: 10,
+    marginBottom: spacing.medium,
+    paddingHorizontal: spacing.small,
   },
 
   inputError: {
@@ -24,9 +25,22 @@ export const styles = StyleSheet.create({
 
   errorText: {
     color: "red",
-    marginBottom: 10,
+    marginBottom: spacing.small,
   },
-
+  button: {
+    backgroundColor: colors.secondary,
+    paddingVertical: spacing.small,
+    paddingHorizontal: spacing.medium,
+    borderRadius: 5,
+    marginBottom: spacing.medium,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: colors.white,
+    fontSize: typography.fontSizeMedium,
+    textAlign: "center",
+  },
   buttonPrimary: {
     justifyContent: "center",
     backgroundColor: "#F08318",
