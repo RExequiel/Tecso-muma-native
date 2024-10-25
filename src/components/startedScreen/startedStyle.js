@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         width: 400,
         height: 400,
         resizeMode: 'contain',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     title: {
         fontSize: 24,

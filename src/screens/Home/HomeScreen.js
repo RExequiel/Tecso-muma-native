@@ -4,8 +4,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Badge, Card } from "@rneui/base"; 
 import mascotasService from "../../services/mascotasService";
 import { styles } from "./HomeStyles";
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const [mascotas, setMascotas] = useState([]);
   const [loading, setLoading] = useState(true);
   const categories = ["Gato", "Perro", "Hamster", "Conejo"];
@@ -74,8 +76,8 @@ const HomeScreen = () => {
       </View>
 
       {/* Botón flotante */}
-      <TouchableOpacity style={styles.floatingButton}>
-        <Icon name="plus" size={25} color="white" />
+      <TouchableOpacity style={styles.floatingButton} onPress={() => navigation.navigate("RegisterMascotas")} >
+        <Icon name="plus" size={25} color="white"/>
       </TouchableOpacity>
     </ScrollView>
   );

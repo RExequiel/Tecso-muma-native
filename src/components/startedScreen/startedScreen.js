@@ -62,9 +62,18 @@ const StartedScreen = () => {
       />
 
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.button} onPress={goToNextSlide}>
-          <Text style={styles.buttonText}>Siguiente</Text>
-        </TouchableOpacity>
+        {currentSlide === 0 && (
+          <TouchableOpacity style={styles.button} onPress={goToNextSlide}>
+            <Text style={styles.buttonText}>Siguiente</Text>
+          </TouchableOpacity>
+        )}
+        
+        {currentSlide === 1 && (
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.buttonText}>Comenzar</Text>
+          </TouchableOpacity>
+        )}
+        
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.skipText}>Omitir</Text>
         </TouchableOpacity>

@@ -5,6 +5,8 @@ import LoginScreen from "../screens/Auth/Login/LoginScreen";
 import RegisterScreen from "../screens/Auth/Register/RegisterScreen";
 import StartedScreen from "../components/startedScreen/startedScreen";
 import HomeScreen from "../screens/Home/HomeScreen";
+import RegisterMascotas from "../screens/Auth/RegisterMascotas/RegisterMascotas";
+import SuccesScreen from "../screens/Auth/RegisterMascotas/SuccesScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,22 +16,21 @@ export default function AuthNavigator() {
   useEffect(() => {
     const checkLoginStatus = async () => { 
       const token = await AsyncStorage.getItem('accessToken'); //Guarda el token
-      setIsLoggedIn(false); // Establece el estado según si hay un token o no
+      setIsLoggedIn(!!token); // Establece el estado según si hay un token o no
     };
 
     checkLoginStatus();
   }, []);
 
-  if (isLoggedIn === null) {
-    // componente splash para mostrar loading
-    return null;
-  }
-
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
-        // Si está logueado, ir directamente al Home
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Inicio" }} />
+        // Si está logueado
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Inicio" }} />
+          <Stack.Screen name="RegisterMascotas" component={RegisterMascotas} options={{ title: "Registrar Mascotas" }} />
+          <Stack.Screen name="SuccesScreen" component={SuccesScreen} options={{ title: "Agregaste una Mascota" }} />
+        </>
       ) : (
         // Si no está logueado, mostrar las pantallas de autenticación
         <>

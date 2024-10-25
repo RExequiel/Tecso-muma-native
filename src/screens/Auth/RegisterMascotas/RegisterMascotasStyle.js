@@ -16,24 +16,33 @@ export const styles = StyleSheet.create({
     },
 
     imagePreview: {
-        flex: 1,
-        justifyContent: 'center',
-        marginTop: 20,
-    },
+        width: 150,
+        height: 150,
+        resizeMode: 'cover',
+        marginVertical: 10,
+      },
 
     imagePicker: {
-        height: 60,
+        height: 50,
         alignItems: 'center',
-        paddingTop: 20,
-        backgroundColor: '#fafafa',
+        justifyContent: "center",
+        backgroundColor: "#FFFFFF",
+        borderRadius: 4,
+        borderWidth: 1,
+        margin: 5,
+        borderColor: "#F08318",
+        paddingVertical: 12,
     },
 
     button: {
+        borderRadius: 4,
+        borderWidth: 1,
         alignItems: 'center',
         margin: 5,
         marginBottom: 20,
-        height: 80,
+        height: 50,
         backgroundColor: '#F08318',
+        borderColor: "#F08318",
     },
 
     buttonText: {
@@ -52,5 +61,10 @@ export const styles = StyleSheet.create({
         resizeMode: "contain",
         marginBottom: 50,
     },
+
+    imgPr: {
+        backgroundColor: "#FFFFFF",
+        alignItems: "center",
+    }
 
 });
