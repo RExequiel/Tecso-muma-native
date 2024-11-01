@@ -29,29 +29,29 @@ const SelectionUsuario = () => {
                         style={styles.overlayImage} 
                         resizeMode="contain"
                     />
+                    <Image 
+                    source={asset1}
+                    style={styles.imageAsset} 
+                    resizeMode="contain"
+                    />
+                    <Text style={styles.imageText}>Mascotero</Text>
                 </TouchableOpacity>
-                <Image 
-                source={asset1}
-                style={styles.imageAsset} 
-                resizeMode="contain"
-                />
-                <Text style={styles.imageText}>Mascotero</Text>
             </View>
 
             <View style={styles.imageContainer1}>
                 <TouchableOpacity onPress={() => navigation.navigate("")}>
                     <Image 
                         source={UserProtectors} 
-                        style={styles.overlayImage} 
+                        style={styles.overlayImage1} 
                         resizeMode="contain"
                     />
+                    <Image 
+                    source={asset} 
+                    style={styles.imageAsset1} 
+                    resizeMode="contain"
+                    />
+                    <Text style={styles.imageText1}>Protectora</Text>
                 </TouchableOpacity>
-                <Image 
-                source={asset} 
-                style={styles.imageAsset1} 
-                resizeMode="contain"
-                />
-                <Text style={styles.imageText}>Protectora</Text>
             </View>
         </View>
     </>

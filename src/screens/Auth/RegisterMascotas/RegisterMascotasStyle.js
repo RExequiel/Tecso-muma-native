@@ -6,6 +6,10 @@ export const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
+        // Centra el contenido en la página
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh', // Asegura que ocupe toda la altura de la ventana
     },
 
     input: {
@@ -13,30 +17,49 @@ export const styles = StyleSheet.create({
         height: 45,
         margin: 5,
         color: 'black',
+        // Hacer el input más responsivo
+        width: '100%', // Ocupa el 100% del contenedor
+        maxWidth: 400, // Máximo ancho del input
+        borderRadius: 4, // Bordes redondeados
+        paddingHorizontal: 10, // Añadir algo de padding
     },
 
     imagePreview: {
-        flex: 1,
-        justifyContent: 'center',
-        marginTop: 20,
-    },
+        width: 150,
+        height: 150,
+        resizeMode: 'cover',
+        marginVertical: 10,
+      },
 
     imagePicker: {
-        height: 60,
+        height: 50,
         alignItems: 'center',
-        paddingTop: 20,
-        backgroundColor: '#fafafa',
+        justifyContent: "center",
+        backgroundColor: "#FFFFFF",
+        borderRadius: 4,
+        borderWidth: 1,
+        margin: 5,
+        borderColor: "#F08318",
+        paddingVertical: 12,
+        width: '100%', // Ocupa el 100% del contenedor
+        maxWidth: 400, // Máximo ancho del botón
     },
 
     button: {
+        borderRadius: 4,
+        borderWidth: 1,
         alignItems: 'center',
         margin: 5,
         marginBottom: 20,
-        height: 80,
+        height: 50,
         backgroundColor: '#F08318',
+        borderColor: "#F08318",
+        width: '100%', // Ocupa el 100% del contenedor
+        maxWidth: 400, // Máximo ancho del botón
     },
 
     buttonText: {
+        color: '#ffffff',
         paddingTop: 15,
     },
 
@@ -52,5 +75,10 @@ export const styles = StyleSheet.create({
         resizeMode: "contain",
         marginBottom: 50,
     },
+
+    imgPr: {
+        backgroundColor: "#FFFFFF",
+        alignItems: "center",
+    }
 
 });

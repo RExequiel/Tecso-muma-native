@@ -6,12 +6,11 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     flex: 1,
     justifyContent: "center",
-    padding: 20,
     alignItems: "center", 
   },
 
   input: {
-    height: 50,
+    height: 40,
     borderColor: colors.border,
     borderWidth: 1,
     borderRadius: 5,
@@ -46,7 +45,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#F08318",
     alignItems: "center",
     marginTop: 10,
-    height: 50,
+    height: 40,
     borderRadius: 4,
     paddingVertical: 12,
   },
@@ -55,8 +54,8 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#FFFFFF",
     alignItems: "center",
-    marginTop: 10,
-    height: 50,
+    marginTop: 5,
+    height: 40,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: "#F08318",
@@ -81,10 +80,10 @@ export const styles = StyleSheet.create({
   },
 
   imageLogo: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
     resizeMode: "contain",
-    marginBottom: 50,
+    marginBottom: 20,
   },
 
   checkboxContainer: {
@@ -102,8 +101,9 @@ export const styles = StyleSheet.create({
   },
 
   button: {
-    padding: 10,
-    marginLeft: 45,
+    alignItems:'center',
+    justifyContent:'left',
+    paddingTop: 8,
   },
 
   buttonText: {

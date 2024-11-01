@@ -1,34 +1,25 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-    success: {
-        flex: 1,
+    container: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#fff',
+        padding: 10,
+        flex: 1,
     },
-    card: {
-        width: '80%',
-        padding: 20,
-        borderRadius: 10,
-        backgroundColor: 'white',
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
+    image: {
+        marginTop: 10,
     },
     imageContainer: {
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 5,
+        width: 250,
+        height: 250,
     },
     dogSuccess: {
         width: 100,
         height: 100,
-        resizeMode: 'contain',
     },
     title: {
         fontSize: 18,
@@ -39,6 +30,20 @@ export const styles = StyleSheet.create({
     message: {
         fontSize: 14,
         textAlign: 'center',
-        marginBottom: 20,
     },
+
+    button: {
+        marginTop: 10,
+        alignItems: 'center',
+        backgroundColor: '#F08318',
+        paddingVertical: 15,
+        borderRadius: 10,
+        marginBottom: 15,
+        width: 100,
+    },
+    buttonText: {
+        color: '#ffffff',
+        fontSize: 14,
+        fontWeight: 'bold',
+    }
 });
