@@ -7,20 +7,31 @@ import StartedScreen from "../components/startedScreen/startedScreen";
 import HomeScreen from "../screens/Home/HomeScreen";
 import RegisterMascotas from "../screens/Auth/RegisterMascotas/RegisterMascotas";
 import SuccesScreen from "../screens/Auth/RegisterMascotas/SuccesScreen";
+import SplashScreen from "../components/splashScreen/splashScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function AuthNavigator() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkLoginStatus = async () => { 
-      const token = await AsyncStorage.getItem('accessToken'); //Guarda el token
-      setIsLoggedIn(!!token); // Establece el estado según si hay un token o no
+    const checkLoginStatus = async () => {
+      // Retrasar la verificación de login para mostrar el SplashScreen por unos segundos
+      setTimeout(async () => {
+        const token = await AsyncStorage.getItem('accessToken');
+        setIsLoggedIn(!!token);
+        setIsLoading(false); // Ocultar el splash después del retraso
+      }, 2500); // Retraso de 2 segundos
     };
 
     checkLoginStatus();
   }, []);
+
+  if (isLoading) {
+    // Muestra SplashScreen mientras se carga el estado de inicio de sesión
+    return <SplashScreen />;
+  }
 
   return (
     <Stack.Navigator>

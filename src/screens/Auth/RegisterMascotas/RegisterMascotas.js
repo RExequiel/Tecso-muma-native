@@ -28,19 +28,19 @@ const RegisterMascotas = () => {
     const [protectoras, setProtectoras] = useState([]);
     const [imagePreview, setImagePreview] = useState(null);
 
-    useEffect(() => {
-        const fetchProtectoras = async () => {
-          try {
-            const response = await protectorasService.getProtectoras();
-            setProtectoras(response);
-            console.log("dato protectora:", protectoras, response)
-          } catch (error) {
-            console.error("Error al cargar las protectoras:", error);
-          }
-        };
-    
-        fetchProtectoras();
-      }, []);
+  useEffect(() => {
+    const fetchProtectoras = async () => {
+      try {
+        const response = await protectorasService.getProtectoras();
+        setProtectoras(response);
+        console.log("datos protectora:", protectoras, response)
+      } catch (error) {
+        console.error("Error al cargar las protectoras:", error);
+      }
+    };
+  
+    fetchProtectoras();
+  }, []);
 
       console.log("datos 2:", protectoras)
 
@@ -74,15 +74,15 @@ const RegisterMascotas = () => {
         provincia: values.provincia,
         ciudad: values.ciudad,
         descripcion: values.descripcion,
-        fotos: imagePreview ? [{ uri: imagePreview }] : [], // se agrega la imagen
+        fotos: imagePreview ? { uri: imagePreview } : null,
       };
-      console.log(mascotaData)
+      
+      console.log("Respuesta mascotaData",mascotaData)
       const response = await mascotasService.registerMascota(mascotaData);
       console.log("Respuesta del servicio:", response);
 
       if (response.Mascota) {
-        // Navegar a SuccessScreen si el registro es exitoso
-        // navigation.navigate("SuccesScreen");
+        navigation.navigate("SuccesMascotas");
       } else {
         console.error("Respuesta inesperada:", response);
       }
@@ -92,62 +92,63 @@ const RegisterMascotas = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
 
-        <View style={styles.logoContainer}>
-            <Image 
-            source={MumaLogo}
-            style={styles.imageLogo}
-            />
-        </View>
+      <View style={styles.logoContainer}>
+        <Image 
+        source={MumaLogo}
+        style={styles.imageLogo}
+        />
+      </View>
 
-        <Formik
-            initialValues={{
-                nombre: "",
-                tipoAnimal: "",
-                raza: "",
-                sexo: "",
-                tamano: "",
-                mesAnioNacimiento: "",
-                estado: "",
-                temperamentoConAnimales: "",
-                temperamentoConPersonas: "",
-                protectoraId: "",
-                provincia:"",
-                ciudad: "",
-                descripcion: "",
-            }}
-            validationSchema={validationSchema}
-            validateOnChange={false}
-            validateOnBlur={false}
-            onSubmit={async (values) => {
-              await handleSubmit1(values);
-            }}
-            >
+      <Formik
+        initialValues={{
+          nombre: "",
+          tipoAnimal: "",
+          raza: "",
+          sexo: "",
+          tamano: "",
+          mesAnioNacimiento: "",
+          estado: "",
+          temperamentoConAnimales: "",
+          temperamentoConPersonas: "",
+          protectoraId: "",
+          provincia:"",
+          ciudad: "",
+          descripcion: "",
+          fotos: "",
+        }}
+        validationSchema={validationSchema}
+        validateOnChange={false}
+        validateOnBlur={false}
+        onSubmit={async (values) => {
+          await handleSubmit1(values);
+        }}
+        >
         {({ values, errors, handleChange, handleSubmit, setFieldValue }) => (
-            <>
+          <>
             <TextInput
-                style={styles.input}
-                placeholder="Nombre de la Mascota*"
-                value={values.nombre}
-                onChangeText={handleChange('nombre')}
+              style={styles.input}
+              placeholder="Nombre de la Mascota*"
+              value={values.nombre}
+              onChangeText={handleChange('nombre')}
             />
             {errors.nombre && <Text style={styles.errorText}>{errors.nombre}</Text>}
 
             <TextInput
-                style={styles.input}
-                placeholder="Tipo mascota*"
-                value={values.tipoAnimal}
-                onChangeText={handleChange('tipoAnimal')}
+              style={styles.input}
+              placeholder="Tipo mascota*"
+              value={values.tipoAnimal}
+              onChangeText={handleChange('tipoAnimal')}
             />
             {errors.tipoAnimal && <Text style={styles.errorText}>{errors.tipoAnimal}</Text>}
 
             <TextInput
-                selectedValue={values.raza}
-                placeholder="Ingrese la Raza*"
-                style={styles.input}
-                onValueChange={handleChange('raza')}
-                onChangeText={handleChange('raza')}
+              selectedValue={values.raza}
+              placeholder="Ingrese la Raza*"
+              style={styles.input}
+              onValueChange={handleChange('raza')}
+              onChangeText={handleChange('raza')}
             />
             {errors.raza && <Text style={styles.errorText}>{errors.raza}</Text>}
 
@@ -163,57 +164,57 @@ const RegisterMascotas = () => {
             {errors.sexo && <Text style={styles.errorText}>{errors.sexo}</Text>}
 
             <TextInput
-                selectedValue={values.tamano}
-                placeholder="Ingrese el Tamaño*"
-                style={styles.input}
-                onValueChange={handleChange('tamano')}
-                onChangeText={handleChange('tamano')}
+              selectedValue={values.tamano}
+              placeholder="Ingrese el Tamaño*"
+              style={styles.input}
+              onValueChange={handleChange('tamano')}
+              onChangeText={handleChange('tamano')}
             />
             {errors.tamano && <Text style={styles.errorText}>{errors.tamano}</Text>}
 
             <TextInput
-                style={styles.input}
-                placeholder="Fecha de Nacimiento*"
-                value={values.mesAnioNacimiento}
-                onChangeText={handleChange('mesAnioNacimiento')}
+              style={styles.input}
+              placeholder="Fecha de Nacimiento*"
+              value={values.mesAnioNacimiento}
+              onChangeText={handleChange('mesAnioNacimiento')}
             />
             {errors.mesAnioNacimiento && <Text style={styles.errorText}>{errors.mesAnioNacimiento}</Text>}
 
             <TextInput
-                style={styles.input}
-                placeholder="Ingrese Estado*"
-                value={values.estado}
-                onChangeText={handleChange('estado')}
+              style={styles.input}
+              placeholder="Ingrese Estado*"
+              value={values.estado}
+              onChangeText={handleChange('estado')}
             />
             {errors.estado && <Text style={styles.errorText}>{errors.estado}</Text>}
 
             <TextInput
-                style={styles.input}
-                placeholder="Temperamento con Animales*"
-                value={values.temperamentoConAnimales}
-                onChangeText={handleChange('temperamentoConAnimales')}
+              style={styles.input}
+              placeholder="Temperamento con Animales*"
+              value={values.temperamentoConAnimales}
+              onChangeText={handleChange('temperamentoConAnimales')}
             />
             {errors.temperamentoConAnimales && <Text style={styles.errorText}>{errors.temperamentoConAnimales}</Text>}
 
             <TextInput
-                style={styles.input}
-                placeholder="Temperamento con Personas*"
-                value={values.temperamentoConPersonas}
-                onChangeText={handleChange('temperamentoConPersonas')}
+              style={styles.input}
+              placeholder="Temperamento con Personas*"
+              value={values.temperamentoConPersonas}
+              onChangeText={handleChange('temperamentoConPersonas')}
             />
             {errors.temperamentoConPersonas && <Text style={styles.errorText}>{errors.temperamentoConPersonas}</Text>}
 
             <Picker
-                selectedValue={values.protectoraId}
-                style={styles.input}
-                onValueChange={(itemValue, itemIndex) => {
-                    const selectedProtectora = protectoras[itemIndex]; // Obtener la protectora seleccionada
-                    setFieldValue('protectoraId', itemValue); // Actualizar el ID de la protectora seleccionada
-                    setFieldValue('provincia', selectedProtectora.direccion.provincia.nombre); // Actualizar la provincia
-                    setFieldValue('ciudad', selectedProtectora.direccion.ciudad.nombre); // Actualizar la ciudad
-                }}
+              selectedValue={values.protectoraId}
+              style={styles.input}
+              onValueChange={(itemValue, itemIndex) => {
+                  const selectedProtectora = protectoras[itemIndex]; // Obtener la protectora seleccionada
+                  setFieldValue('protectoraId', itemValue); // Actualizar el ID de la protectora seleccionada
+                  setFieldValue('provincia', selectedProtectora.direccion.provincia.nombre); // Actualizar la provincia
+                  setFieldValue('ciudad', selectedProtectora.direccion.ciudad.nombre); // Actualizar la ciudad
+              }}
             >
-                <Picker.Item label="Selecciona una Protectora" value="" />
+              <Picker.Item label="Selecciona una Protectora" value="" />
                 {protectoras.map((protectora) => (
                   <Picker.Item key={protectora.id} label={protectora.nombreProtectora} value={protectora.id} />
                 ))}
@@ -228,17 +229,17 @@ const RegisterMascotas = () => {
             />
 
             <TextInput
-                style={styles.input}
-                placeholder="Ciudad*"
-                value={values.ciudad}
-                editable={false}
+              style={styles.input}
+              placeholder="Ciudad*"
+              value={values.ciudad}
+              editable={false}
             />
 
             <TextInput
-                style={styles.input}
-                placeholder="Ingrese Descripción*"
-                value={values.descripcion}
-                onChangeText={handleChange('descripcion')}
+              style={styles.input}
+              placeholder="Ingrese Descripción*"
+              value={values.descripcion}
+              onChangeText={handleChange('descripcion')}
             />
               <TouchableOpacity
                 style={styles.imagePicker}
@@ -251,16 +252,12 @@ const RegisterMascotas = () => {
             
             <TouchableOpacity 
               style={styles.button} 
-              onPress={() => {
-                console.log("Botón presionado");
-                handleSubmit();
-                {() => navigation.navigate("SuccesMascotas")}
-              }}>
-                <Text style={styles.buttonText}>Registrar Mascota</Text>
+              onPress={() => {navigation.navigate("SuccesScreen");}}>
+              <Text style={styles.buttonText}>Registrar Mascota</Text>
             </TouchableOpacity>
         </>
         )}
-        </Formik>
+      </Formik>
     </ScrollView>
   );
 };

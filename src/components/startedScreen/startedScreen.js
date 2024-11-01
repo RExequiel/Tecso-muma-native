@@ -6,7 +6,6 @@ import { styles } from "./startedStyle";
 // Obtiene el ancho de la pantalla
 const { width } = Dimensions.get('window');
 
-// Datos de las imágenes y textos
 const slides = [
   {
     id: '1',
@@ -41,18 +40,29 @@ const StartedScreen = () => {
       <Image source={item.image} style={styles.image} />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.description}>{item.description}</Text>
+      {currentSlide === 0 && (
+        <TouchableOpacity style={styles.button} onPress={goToNextSlide}>
+          <Text style={styles.buttonText}>Siguiente</Text>
+        </TouchableOpacity>
+      )}
+      {currentSlide === 1 && (
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.buttonText}>Comenzar</Text>
+        </TouchableOpacity>
+      )}
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.skipText}>Omitir</Text>
+      </TouchableOpacity>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      {/* Slideshow usando FlatList */}
       <FlatList
         data={slides}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         horizontal
-        pagingEnabled
         showsHorizontalScrollIndicator={false}
         ref={flatListRef}
         onScroll={(e) => {
@@ -60,24 +70,6 @@ const StartedScreen = () => {
           setCurrentSlide(slideIndex);
         }}
       />
-
-      <View style={styles.buttonsContainer}>
-        {currentSlide === 0 && (
-          <TouchableOpacity style={styles.button} onPress={goToNextSlide}>
-            <Text style={styles.buttonText}>Siguiente</Text>
-          </TouchableOpacity>
-        )}
-        
-        {currentSlide === 1 && (
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.buttonText}>Comenzar</Text>
-          </TouchableOpacity>
-        )}
-        
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.skipText}>Omitir</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };

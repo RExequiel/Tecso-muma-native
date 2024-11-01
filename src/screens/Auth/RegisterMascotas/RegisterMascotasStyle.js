@@ -6,6 +6,10 @@ export const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
+        // Centra el contenido en la página
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh', // Asegura que ocupe toda la altura de la ventana
     },
 
     input: {
@@ -13,6 +17,11 @@ export const styles = StyleSheet.create({
         height: 45,
         margin: 5,
         color: 'black',
+        // Hacer el input más responsivo
+        width: '100%', // Ocupa el 100% del contenedor
+        maxWidth: 400, // Máximo ancho del input
+        borderRadius: 4, // Bordes redondeados
+        paddingHorizontal: 10, // Añadir algo de padding
     },
 
     imagePreview: {
@@ -32,6 +41,8 @@ export const styles = StyleSheet.create({
         margin: 5,
         borderColor: "#F08318",
         paddingVertical: 12,
+        width: '100%', // Ocupa el 100% del contenedor
+        maxWidth: 400, // Máximo ancho del botón
     },
 
     button: {
@@ -43,9 +54,12 @@ export const styles = StyleSheet.create({
         height: 50,
         backgroundColor: '#F08318',
         borderColor: "#F08318",
+        width: '100%', // Ocupa el 100% del contenedor
+        maxWidth: 400, // Máximo ancho del botón
     },
 
     buttonText: {
+        color: '#ffffff',
         paddingTop: 15,
     },
 

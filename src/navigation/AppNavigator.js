@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthNavigator from "./AuthNavigator";
 import HomeScreen from "../screens/Home/HomeScreen";
 import SelectionUser from "../screens/UserSelection/UserSelection";
+import RegisterMascotas from "../screens/Auth/RegisterMascotas/RegisterMascotas";
+import SuccesScreen from "../screens/Auth/RegisterMascotas/SuccesScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,6 +14,8 @@ export default function AppNavigator() {
       <Stack.Screen name="Auth" component={AuthNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Inicio" }} />
       <Stack.Screen name="SelectionUser" component={SelectionUser} options={{ title: "Seleccion de Usuario" }} />
+      <Stack.Screen name="RegisterMascotas" component={RegisterMascotas} options={{ title: "Registrar Mascotas" }} />
+      <Stack.Screen name="SuccesScreen" component={SuccesScreen} options={{ title: "Agregaste una Mascota" }} />
     </Stack.Navigator>
   );
 }
